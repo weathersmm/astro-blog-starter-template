@@ -1,0 +1,15 @@
+---
+import Nav from '../components/Nav.astro';
+import FeaturesGrid from '../components/FeaturesGrid.astro';
+import { getCollection } from 'astro:content';
+
+// Retrieve the EMS product from the collection (slug "rampart").
+const p = (await getCollection('product')).find((p) => p.data.slug === 'rampart')!.data;
+---
+<Nav />
+<section class="container card">
+  <h1>InCheck for EMS</h1>
+  <p class="muted">{p.description}</p>
+  <a class="btn" href="/contact">Request EMS demo</a>
+</section>
+<FeaturesGrid features={p.features} />

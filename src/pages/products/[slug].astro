@@ -1,0 +1,22 @@
+---
+import Nav from '../../components/Nav.astro';
+import FeaturesGrid from '../../components/FeaturesGrid.astro';
+import { getCollection } from 'astro:content';
+
+// Generate static paths for each product based on its slug.
+export async function getStaticPaths() {
+  const products = await getCollection('product');
+  return products.map((p) => ({ params: { slug: p.data.slug }, props: { product: p.data } }));
+}
+
+const { product } = Astro.props;
+---
+<Nav />
+<section class="container card">
+  <h1 style="margin-top:0">{product.name}</h1>
+  <p class="muted">{product.description}</p>
+  {product.cta ? (
+    <a class="btn" href={product.cta.href}>{product.cta.label}</a>
+  ) : null}
+</section>
+<FeaturesGrid features={product.features} />

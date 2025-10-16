@@ -1,0 +1,21 @@
+---
+import Nav from '../components/Nav.astro';
+import { getCollection } from 'astro:content';
+
+// Fetch all products from the product collection. Note that
+// getCollection() returns an array of entries with metadata
+// and frontmatter in `data`.
+const products = await getCollection('product');
+---
+<Nav />
+<section class="container">
+  <h1>Products</h1>
+  <div class="grid cols-3">
+    {products.map(({ data }) => (
+      <a class="card" href={`/products/${data.slug}`} style="text-decoration:none;color:inherit">
+        <h3 style="margin:0">{data.name}</h3>
+        <p class="muted">{data.tagline}</p>
+      </a>
+    ))}
+  </div>
+</section>

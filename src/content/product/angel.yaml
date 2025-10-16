@@ -1,0 +1,24 @@
+slug: angel
+name: Angel Mode
+tagline: "Your Supervisor in Your Pocket"
+audience:
+  - enterprise
+description: >
+  24/7 answers from your policies, SOPs, and handbooks — accurate, contextual, and instant. From
+  onboarding to compliance, no waiting or guessing.
+features:
+  - title: Angel Mode
+    body: >
+      Ask in plain language. Get precise, policy‑grounded answers on demand so your team always
+      follows the right procedure.
+  - title: El Chat Mode
+    body: >
+      Brainstorm, draft, analyse and collaborate with files and images. Ideal for policy updates,
+      training materials and incident reviews.
+  - title: Translate Mode
+    body: >
+      Professional‑grade translations that preserve nuance and tone across multiple languages,
+      ensuring consistent communication.
+cta:
+  label: See the Enterprise suite
+  href: "/enterprise"

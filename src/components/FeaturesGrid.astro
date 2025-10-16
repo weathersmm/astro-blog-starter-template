@@ -1,0 +1,16 @@
+---
+// A simple grid component to display an array of feature objects.
+// Each feature has a title and body. The parent component is
+// responsible for passing the `features` prop.
+const { features = [] } = Astro.props;
+---
+<section class="container">
+  <div class="grid cols-3">
+    {features.map((f) => (
+      <div class="card">
+        <h3 style="margin-top:0">{f.title}</h3>
+        <p class="muted">{f.body}</p>
+      </div>
+    ))}
+  </div>
+</section>

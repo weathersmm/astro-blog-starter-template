@@ -1,0 +1,75 @@
+/*
+ * Global design tokens for the InCheck site. These variables define
+ * colours, spacing, typography and layout primitives used throughout
+ * the components and pages. Tweak these values to customise the look
+ * and feel of your site without touching individual components.
+ */
+:root {
+  --bg: #0b0f1a;
+  --fg: #e6ebf5;
+  --muted: #9db0cc;
+  --brand: #5aa7ff;
+  --brand-2: #49e6a1;
+  --card: #121828;
+  --radius: 14px;
+  --gap: 16px;
+  --max: 1100px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font: 16px/1.6 system-ui;
+}
+
+.container {
+  max-width: var(--max);
+  margin: auto;
+  padding: 24px;
+}
+
+.card {
+  background: var(--card);
+  border-radius: var(--radius);
+  padding: 24px;
+  border: 1px solid #1d2538;
+}
+
+.btn {
+  display: inline-block;
+  padding: 12px 16px;
+  border-radius: 10px;
+  background: var(--brand);
+  color: #061122;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.btn.ghost {
+  background: transparent;
+  border: 1px solid var(--brand);
+  color: var(--fg);
+}
+
+.grid {
+  display: grid;
+  gap: var(--gap);
+}
+
+.grid.cols-3 {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.hero h1 {
+  font-size: clamp(28px, 5vw, 54px);
+  margin: 0.2em 0;
+}
+
+.muted {
+  color: var(--muted);
+}

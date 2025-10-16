@@ -1,0 +1,22 @@
+---
+// Simple top navigation for the InCheck site. Update the links array
+// if you add or remove pages. The last item in the row is a call‑to‑action
+// to request a demo.
+const links = [
+  { href: '/', label: 'Home' },
+  { href: '/products', label: 'Products' },
+  { href: '/ems', label: 'EMS' },
+  { href: '/enterprise', label: 'Enterprise' },
+  { href: '/contact', label: 'Contact' },
+];
+---
+<link rel="stylesheet" href="/src/styles/tokens.css" />
+<nav class="container" style="display:flex;justify-content:space-between;align-items:center;padding-block:16px">
+  <a href="/" style="font-weight:800;text-decoration:none;color:var(--fg)">InCheck</a>
+  <div style="display:flex;gap:14px">
+    {links.map((l) => (
+      <a href={l.href} style="text-decoration:none;color:var(--muted)">{l.label}</a>
+    ))}
+    <a class="btn" href="/contact">Demo</a>
+  </div>
+</nav>

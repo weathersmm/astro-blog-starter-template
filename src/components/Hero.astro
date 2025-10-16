@@ -1,0 +1,13 @@
+---
+// A reusable hero component that displays a title, subtitle and
+// call‑to‑action button. Pass in different props when used on
+// various pages.
+const { title, sub, ctaHref = '/contact', ctaLabel = 'Request a demo' } = Astro.props;
+---
+<section class="container hero">
+  <div class="card">
+    <h1>{title}</h1>
+    <p class="muted">{sub}</p>
+    <a class="btn" href={ctaHref}>{ctaLabel}</a>
+  </div>
+</section>

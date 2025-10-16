@@ -1,0 +1,23 @@
+slug: rampart
+name: Rampart
+tagline: "Your AI Partner on Every Call"
+audience:
+  - ems
+description: >
+  InCheck AI is built for EMS realities: scope‑aware, protocol‑grounded support from complex calls
+  to narrative generation — so crews focus on patients.
+features:
+  - title: Advanced Clinical Decision Support
+    body: >
+      Protocol‑driven differential support, treatment paths, and pharmacology by certification level
+      and local dosing.
+  - title: Intelligent Narrative Generation
+    body: >
+      Turns spoken encounters into chart‑ready PCR narratives, capturing key details so crews spend
+      more time with patients.
+  - title: Integrated HAZMAT & Specialized Response
+    body: >
+      Pulls ERG data instantly for scene safety, PPE guidance, and appropriate treatment options.
+cta:
+  label: Request an EMS demo
+  href: "/contact"
