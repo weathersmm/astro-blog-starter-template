@@ -1,0 +1,348 @@
+---
+import { useState } from "astro/jsx-runtime"; // For interactive toggle (Astro 3+)
+const monthlyPlans = [
+  {
+    name: "Free",
+    icon: "/assets/icons/rocket.svg",
+    description: 'Access to Rampart (EMS Mode) and "El Chat".',
+    price: "Free",
+    features: [
+      "Limited to 3 requests per 3 hours",
+      "Basic assistance for both medical and general use"
+    ],
+    highlight: false,
+    ctaLabel: "Start Free",
+    ctaHref: "/signup"
+  },
+  {
+    name: "Standard",
+    icon: "/assets/icons/user-check.svg",
+    description: 'Limited "El Chat" access. Basic Rampart access.',
+    price: "$12.99/mo",
+    features: [
+      "General purpose use"
+    ],
+    highlight: true,
+    ctaLabel: "Get Standard",
+    ctaHref: "/signup"
+  },
+  {
+    name: "Teams",
+    icon: "/assets/icons/users.svg",
+    description: "All Professional features. Team management capabilities.",
+    price: "Custom",
+    features: [
+      "Min 5 seats",
+      "Basic integrations"
+    ],
+    highlight: false,
+    ctaLabel: "Contact Sales",
+    ctaHref: "/contact"
+  },
+  {
+    name: "Enterprise",
+    icon: "/assets/icons/building.svg",
+    description: "Unlimited access across all models.",
+    price: "Custom",
+    features: [
+      "Advanced customization options",
+      "Dedicated support"
+    ],
+    highlight: false,
+    ctaLabel: "Contact Sales",
+    ctaHref: "/contact"
+  },
+  {
+    name: "API Integration",
+    icon: "/assets/icons/api.svg",
+    description: "Programmatic access to all AI models.",
+    price: "Custom",
+    features: [
+      "Custom implementation support",
+      "Scalable solutions"
+    ],
+    highlight: false,
+    ctaLabel: "Contact Sales",
+    ctaHref: "/contact"
+  }
+];
+const annualPlans = structuredClone(monthlyPlans).map(p =>
+  p.price !== "Free" && p.price !== "Custom"
+    ? { ...p, price: "$129/yr" } // Sample: 2 months free
+    : p
+);
+
+const [billing, setBilling] = useState("monthly");
+const plans = billing === "monthly" ? monthlyPlans : annualPlans;
+
+const faqs = [
+  {
+    q: "Can I try InCheck.AI for free?",
+    a: "Yes! Our Free plan gives you access to Rampart (EMS Mode) and El Chat with limited usage. No credit card required."
+  },
+  {
+    q: "Can I change plans later?",
+    a: "Absolutely. Upgrade, downgrade, or cancel your plan at any time from your dashboard."
+  },
+  {
+    q: "Do you offer support for integrations?",
+    a: "Yes, Teams, Enterprise, and API plans include support for integrations and custom implementation."
+  },
+  {
+    q: "Is there a minimum contract for Teams or Enterprise?",
+    a: "Teams plans require a minimum of 5 seats. Enterprise plans are fully custom—contact us for details."
+  }
+];
+const [openFaq, setOpenFaq] = useState(-1);
+---
+
+<section class="pricing-hero">
+  <h1>Our pricing plans</h1>
+  <p class="pricing-lead">Flexible options for EMS, Enterprise, and API. Start free—scale as you grow.</p>
+  <div class="billing-toggle">
+    <button
+      class={billing === "monthly" ? "active" : ""}
+      onClick={() => setBilling("monthly")}
+      aria-pressed={billing === "monthly"}
+    >Monthly</button>
+    <button
+      class={billing === "annual" ? "active" : ""}
+      onClick={() => setBilling("annual")}
+      aria-pressed={billing === "annual"}
+    >Annual <span>(save 15%)</span></button>
+  </div>
+</section>
+
+<section class="pricing-grid-wrap">
+  <div class="pricing-grid">
+    {plans.map(plan => (
+      <div class={`plan-card${plan.highlight ? " plan-card--highlight" : ""}`}>
+        {plan.icon && <img src={plan.icon} alt="" class="plan-icon" />}
+        <h3 class="plan-card-title">{plan.name}</h3>
+        {plan.description && <p class="plan-card-desc">{plan.description}</p>}
+        <div class="plan-card-price">{plan.price}</div>
+        <ul class="plan-card-features">
+          {plan.features.map(f => <li>{f}</li>)}
+        </ul>
+        {plan.ctaLabel && plan.ctaHref && (
+          <a href={plan.ctaHref} class="plan-card-cta">{plan.ctaLabel}</a>
+        )}
+      </div>
+    ))}
+  </div>
+</section>
+
+<section class="faq-section">
+  <h2>Frequently Asked Questions</h2>
+  <div class="faq-list">
+    {faqs.map((faq, i) => (
+      <div class="faq-item">
+        <button
+          class="faq-question"
+          aria-expanded={openFaq === i}
+          aria-controls={`faq-panel-${i}`}
+          id={`faq-btn-${i}`}
+          onClick={() => setOpenFaq(openFaq === i ? -1 : i)}
+        >
+          {faq.q}
+          <span class="faq-caret">{openFaq === i ? "▲" : "▼"}</span>
+        </button>
+        <div
+          id={`faq-panel-${i}`}
+          class="faq-answer"
+          role="region"
+          aria-labelledby={`faq-btn-${i}`}
+          style={`display:${openFaq === i ? "block" : "none"}`}
+        >
+          {faq.a}
+        </div>
+      </div>
+    ))}
+  </div>
+</section>
+
+<style>
+.pricing-hero {
+  padding: 2.5em 1em 1.2em 1em;
+  text-align: center;
+  background: linear-gradient(120deg, #f0f7fa 0%, #e5ecfa 100%);
+}
+.pricing-hero h1 {
+  font-size: 2.4em;
+  font-weight: 800;
+  color: var(--fg, #181b23);
+  letter-spacing: -0.02em;
+  margin-bottom: 0.3em;
+}
+.pricing-lead {
+  color: var(--muted, #555);
+  font-size: 1.15em;
+  margin-bottom: 1.2em;
+}
+.billing-toggle {
+  display: inline-flex;
+  border: 1.5px solid var(--primary, #0ea5e9);
+  border-radius: 2em;
+  font-size: 1em;
+  overflow: hidden;
+  box-shadow: 0 1px 6px #0ea5e91a;
+}
+.billing-toggle button {
+  background: none;
+  border: none;
+  min-width: 110px;
+  padding: 0.6em 1em;
+  color: var(--primary, #0ea5e9);
+  font-weight: 600;
+  transition: background 0.16s, color 0.16s;
+  cursor: pointer;
+}
+.billing-toggle button.active,
+.billing-toggle button:active,
+.billing-toggle button[aria-pressed="true"] {
+  background: var(--primary, #0ea5e9);
+  color: #fff;
+}
+.billing-toggle span {
+  font-size: 0.92em;
+  color: #2a7da1;
+}
+.pricing-grid-wrap {
+  background: #fff;
+  padding: 2em 0 1em 0;
+}
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(248px, 1fr));
+  gap: 2em;
+  max-width: 1150px;
+  margin: 0 auto;
+}
+.plan-card {
+  background: #fff;
+  border-radius: 1.2em;
+  box-shadow: 0 2px 18px #0ea5e913;
+  padding: 2.2em 1.6em 2em 1.6em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: box-shadow 0.14s, transform 0.14s;
+  border: 2px solid transparent;
+}
+.plan-card--highlight {
+  border-color: var(--primary, #0ea5e9);
+  box-shadow: 0 8px 32px #0ea5e91c;
+  transform: translateY(-3px) scale(1.03);
+}
+.plan-icon {
+  width: 38px;
+  height: 38px;
+  margin-bottom: 0.9em;
+  filter: drop-shadow(0 2px 8px #0ea5e93c);
+}
+.plan-card-title {
+  font-size: 1.12em;
+  font-weight: 700;
+  margin: 0 0 0.3em 0;
+  color: var(--primary, #0ea5e9);
+}
+.plan-card-desc {
+  font-size: 1.03em;
+  color: var(--muted, #555);
+  margin-bottom: 0.6em;
+}
+.plan-card-price {
+  font-size: 2em;
+  font-weight: 800;
+  margin-bottom: 0.6em;
+  color: var(--fg, #181b23);
+}
+.plan-card-features {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 1em;
+  color: var(--muted, #555);
+  font-size: 1.01em;
+  text-align: left;
+  width: 100%;
+}
+.plan-card-features li {
+  margin-bottom: 0.4em;
+  padding-left: 1.4em;
+  position: relative;
+}
+.plan-card-features li::before {
+  content: "✔";
+  color: var(--primary, #0ea5e9);
+  position: absolute;
+  left: 0;
+  font-size: 1.03em;
+}
+.plan-card-cta {
+  display: inline-block;
+  margin-top: auto;
+  background: var(--primary, #0ea5e9);
+  color: #fff;
+  border-radius: 22px;
+  padding: 0.65em 2em;
+  font-weight: 600;
+  text-decoration: none;
+  box-shadow: 0 1px 6px 0 rgba(14,165,233,0.09);
+  transition: background 0.16s, color 0.16s;
+}
+.plan-card-cta:hover {
+  background: #0369a1;
+  color: #fff;
+}
+.faq-section {
+  padding: 2.8em 1em 2.5em 1em;
+  background: linear-gradient(120deg, #e5ecfa 0%, #f0f7fa 100%);
+}
+.faq-section h2 {
+  text-align: center;
+  font-size: 1.4em;
+  font-weight: 700;
+  color: var(--fg, #181b23);
+  margin-bottom: 1.5em;
+}
+.faq-list {
+  max-width: 680px;
+  margin: 0 auto;
+}
+.faq-item {
+  margin-bottom: 1.1em;
+  border-radius: 0.7em;
+  background: #fff;
+  box-shadow: 0 2px 10px #0ea5e911;
+  overflow: hidden;
+}
+.faq-question {
+  width: 100%;
+  background: none;
+  border: none;
+  padding: 1.1em 1.7em 1.1em 1em;
+  text-align: left;
+  font-size: 1.08em;
+  font-weight: 600;
+  color: var(--fg, #181b23);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+}
+.faq-caret {
+  font-size: 1.05em;
+  color: var(--primary, #0ea5e9);
+}
+.faq-answer {
+  padding: 0 1.8em 1em 1em;
+  color: var(--muted, #444);
+  font-size: 1.03em;
+}
+@media (max-width: 700px) {
+  .pricing-hero h1 { font-size: 1.45em; }
+  .pricing-grid { gap: 1.1em; }
+  .plan-card { padding: 1.1em 0.5em; }
+  .plan-card-price { font-size: 1.25em; }
+}
+</style>
