@@ -1,16 +1,103 @@
 ---
-// A simple grid component to display an array of feature objects.
-// Each feature has a title and body. The parent component is
-// responsible for passing the `features` prop.
-const { features = [] } = Astro.props;
+// Modern features grid for InCheck.AI
+// Each feature can have an icon/image, title, body, and optional link.
+export interface Feature {
+  title: string
+  body: string
+  icon?: string
+  linkLabel?: string
+  linkHref?: string
+}
+export interface Props {
+  features?: Feature[]
+  columns?: number
+}
+const { features = [], columns = 3 } = Astro.props;
 ---
-<section class="container">
-  <div class="grid cols-3">
+
+<section class="features-grid-section container">
+  <div class={`features-grid cols-${columns}`}>
     {features.map((f) => (
-      <div class="card">
-        <h3 style="margin-top:0">{f.title}</h3>
-        <p class="muted">{f.body}</p>
+      <div class="feature-card">
+        {f.icon && <img src={f.icon} alt="" class="feature-icon" />}
+        <h3>{f.title}</h3>
+        <p class="feature-body">{f.body}</p>
+        {f.linkLabel && f.linkHref && (
+          <a href={f.linkHref} class="feature-link">{f.linkLabel}</a>
+        )}
       </div>
     ))}
   </div>
 </section>
+
+<style>
+.features-grid-section {
+  margin-block: 2.5em;
+}
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(var(--cols, 3), 1fr);
+  gap: 2.2em 1.6em;
+}
+.cols-1 { --cols: 1; }
+.cols-2 { --cols: 2; }
+.cols-3 { --cols: 3; }
+.cols-4 { --cols: 4; }
+.feature-card {
+  background: #fff;
+  border-radius: 1.3em;
+  box-shadow: 0 2px 18px #0ea5e913;
+  padding: 2em 1.4em 1.7em 1.4em;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: box-shadow 0.13s, transform 0.13s;
+}
+.feature-card:hover {
+  box-shadow: 0 8px 32px #0ea5e91c;
+  transform: translateY(-3px) scale(1.02);
+}
+.feature-icon {
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+  margin-bottom: 1em;
+}
+.feature-card h3 {
+  margin-top: 0;
+  font-size: 1.23em;
+  font-weight: 700;
+  margin-bottom: 0.5em;
+  color: var(--fg, #1b2436);
+}
+.feature-body {
+  color: var(--muted, #555);
+  font-size: 1.04em;
+  margin-bottom: 1.1em;
+}
+.feature-link {
+  display: inline-block;
+  margin-top: auto;
+  color: var(--primary, #0ea5e9);
+  text-decoration: none;
+  font-weight: 600;
+  border-radius: 1em;
+  padding: 0.3em 0.9em;
+  background: #f0fafd;
+  transition: background 0.13s, color 0.13s;
+}
+.feature-link:hover {
+  background: #e0f2fe;
+  color: #0369a1;
+}
+@media (max-width: 900px) {
+  .features-grid { grid-template-columns: 1fr 1fr; }
+  .cols-3, .cols-4 { --cols: 2; }
+}
+@media (max-width: 600px) {
+  .features-grid { grid-template-columns: 1fr; }
+  .cols-2, .cols-3, .cols-4 { --cols: 1; }
+  .feature-card { padding: 1.3em 0.7em; }
+}
+</style>
