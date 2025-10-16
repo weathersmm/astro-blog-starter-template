@@ -1,7 +1,7 @@
 ---
-// Simple top navigation for the InCheck site. Update the links array
-// if you add or remove pages. The last item in the row is a call‑to‑action
-// to request a demo.
+// Modern top navigation for the InCheck.AI site.
+// Update the links array if you add or remove pages.
+// The last item in the row is a call‑to‑action to request a demo.
 const links = [
   { href: '/', label: 'Home' },
   { href: '/products', label: 'Products' },
@@ -11,12 +11,81 @@ const links = [
 ];
 ---
 <link rel="stylesheet" href="/src/styles/tokens.css" />
-<nav class="container" style="display:flex;justify-content:space-between;align-items:center;padding-block:16px">
-  <a href="/" style="font-weight:800;text-decoration:none;color:var(--fg)">InCheck</a>
-  <div style="display:flex;gap:14px">
+<nav class="navbar-container">
+  <a href="/" class="navbar-logo">InCheck<span class="navbar-dot">.</span>AI</a>
+  <div class="navbar-links">
     {links.map((l) => (
-      <a href={l.href} style="text-decoration:none;color:var(--muted)">{l.label}</a>
+      <a href={l.href} class="navbar-link">{l.label}</a>
     ))}
-    <a class="btn" href="/contact">Demo</a>
+    <a class="btn navbar-cta" href="/contact">Request Demo</a>
   </div>
 </nav>
+<style>
+.navbar-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-block: 18px;
+  padding-inline: 2vw;
+  background: var(--bg, #fff);
+  box-shadow: 0 2px 8px 0 rgba(30,36,52,0.04);
+  position: relative;
+  z-index: 10;
+}
+.navbar-logo {
+  font-weight: 800;
+  font-size: 1.3rem;
+  text-decoration: none;
+  color: var(--fg, #191b1f);
+  letter-spacing: -1px;
+  display: flex;
+  align-items: center;
+}
+.navbar-dot {
+  color: var(--primary, #0ea5e9);
+  font-size: 1.6em;
+  margin-left: 1px;
+}
+.navbar-links {
+  display: flex;
+  gap: 18px;
+  align-items: center;
+}
+.navbar-link {
+  text-decoration: none;
+  color: var(--muted, #454a56);
+  font-weight: 500;
+  font-size: 1rem;
+  transition: color 0.16s;
+  padding: 2px 0;
+  border-bottom: 2px solid transparent;
+}
+.navbar-link:hover {
+  color: var(--primary, #0ea5e9);
+  border-bottom: 2px solid var(--primary, #0ea5e9);
+}
+.btn.navbar-cta {
+  background: var(--primary, #0ea5e9);
+  color: #fff;
+  border-radius: 22px;
+  padding: 8px 22px;
+  font-weight: 600;
+  margin-left: 8px;
+  text-decoration: none;
+  box-shadow: 0 1px 6px 0 rgba(14,165,233,0.09);
+  transition: background 0.16s, color 0.16s;
+}
+.btn.navbar-cta:hover {
+  background: #0369a1;
+  color: #fff;
+}
+@media (max-width: 700px) {
+  .navbar-links {
+    gap: 8px;
+  }
+  .btn.navbar-cta {
+    padding: 7px 13px;
+    font-size: 0.98em;
+  }
+}
+</style>
