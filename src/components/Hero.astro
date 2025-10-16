@@ -1,13 +1,22 @@
 ---
-// A reusable hero component that displays a title, subtitle and
-// call‑to‑action button. Pass in different props when used on
-// various pages.
-const { title, sub, ctaHref = '/contact', ctaLabel = 'Request a demo' } = Astro.props;
+export interface Props {
+  headline?: string
+  subheadline?: string
+  ctaLabel?: string
+  ctaHref?: string
+}
+const {
+  headline = "Your Company’s Intelligence Engine",
+  subheadline = "AI-powered support for Enterprise & EMS",
+  ctaLabel = "Request Demo",
+  ctaHref = "/contact"
+} = Astro.props
 ---
-<section class="container hero">
-  <div class="card">
-    <h1>{title}</h1>
-    <p class="muted">{sub}</p>
-    <a class="btn" href={ctaHref}>{ctaLabel}</a>
+<section class="hero">
+  <div class="container hero-content">
+    <img src="/assets/img/incheck-logo.png" alt="InCheck.AI" class="logo" />
+    <h1>{headline}</h1>
+    <p class="lead">{subheadline}</p>
+    <a href={ctaHref} class="btn-get-started">{ctaLabel}</a>
   </div>
 </section>
