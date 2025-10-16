@@ -1,0 +1,45 @@
+---
+import Layout from '../layouts/Layout.astro';
+import FeatureCard from '../components/FeatureCard.astro';
+import AdvantageCard from '../components/AdvantageCard.astro';
+---
+
+<Layout title="Enterprise | InCheck.AI">
+  <section class="hero enterprise-hero">
+    <div class="container">
+      <img src="/assets/img/incheck-logo.png" alt="InCheck.AI Logo" class="logo" />
+      <h1>Your Company’s Intelligence Engine</h1>
+      <h2>Meet Angel: Your Supervisor in Your Pocket</h2>
+      <p class="lead">Instant answers to company policies, SOPs, and handbooks—empowering every employee, anytime.</p>
+      <a href="/contact" class="btn-get-started">Request Demo</a>
+    </div>
+  </section>
+  <section class="features-grid">
+    <div class="container">
+      <h2 class="section-title">Enterprise AI Suite</h2>
+      <div class="features-cards">
+        <FeatureCard icon="/assets/img/angel-icon.png" title="Angel Mode" description="Your instant supervisor in your pocket. 24/7 access to company policies, SOPs, and handbooks. Ask in plain language, get instant, accurate answers." benefit="Empower onboarding, compliance, daily ops." />
+        <FeatureCard icon="/assets/img/chat-icon.png" title="El Chat Mode" description="Creative, problem-solving partner for brainstorming, drafting, data analysis, and collaboration with files and images." benefit="Accelerate innovation and teamwork." />
+        <FeatureCard icon="/assets/img/translate-icon.png" title="Translate Mode" description="Professional-grade translations preserving nuance and tone for global communication." benefit="Connect teams and clients worldwide." />
+      </div>
+    </div>
+  </section>
+  <section class="advantage">
+    <div class="container">
+      <h2 class="section-title">The InCheck AI Advantage</h2>
+      <div class="advantage-grid">
+        <AdvantageCard title="Built for Accuracy" description="Engineered for emergency services—mistakes aren’t an option." />
+        <AdvantageCard title="Understands Context" description="Reads entire documents, not just keywords." />
+        <AdvantageCard title="Boosts Productivity" description="Frees your team from time-consuming searches." />
+        <AdvantageCard title="Secure & Scalable" description="Enterprise-grade protection and performance." />
+      </div>
+    </div>
+  </section>
+  <section class="cta">
+    <div class="container">
+      <h2>Turn Company Knowledge Into Your Competitive Edge</h2>
+      <p>Your policies and procedures shouldn’t collect dust—they should work for you. With InCheck, they finally do.</p>
+      <a href="/contact" class="btn-get-started">Request Demo</a>
+    </div>
+  </section>
+</Layout>

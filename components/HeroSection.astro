@@ -1,0 +1,22 @@
+---
+export interface Props {
+  headline?: string
+  subheadline?: string
+  ctaLabel?: string
+  ctaHref?: string
+}
+const {
+  headline = "Your Company’s Intelligence Engine",
+  subheadline = "AI-powered support for Enterprise & EMS",
+  ctaLabel = "Request Demo",
+  ctaHref = "/contact"
+} = Astro.props
+---
+<section class="hero">
+  <div class="container hero-content">
+    <img src="/assets/img/incheck-logo.png" alt="InCheck.AI" class="logo" />
+    <h1>{headline}</h1>
+    <p class="lead">{subheadline}</p>
+    <a href={ctaHref} class="btn-get-started">{ctaLabel}</a>
+  </div>
+</section>

@@ -1,0 +1,20 @@
+---
+export interface Tab {
+  label: string
+  content: any
+}
+export interface Props {
+  tabs: Tab[]
+  initial?: number
+}
+const { tabs, initial = 0 } = Astro.props
+const [active, setActive] = Astro.useState(initial)
+---
+<div class="tabs">
+  {tabs.map((tab, i) => (
+    <button class={`tab${active === i ? " active" : ""}`} onClick={() => setActive(i)}>{tab.label}</button>
+  ))}
+</div>
+<div>
+  {tabs[active].content}
+</div>

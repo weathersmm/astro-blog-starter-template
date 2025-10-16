@@ -1,0 +1,15 @@
+---
+export interface Props {
+  icon: string
+  title: string
+  description: string
+  benefit?: string
+}
+const { icon, title, description, benefit } = Astro.props
+---
+<div class="feature-card">
+  <img src={icon} alt={title} />
+  <h3>{title}</h3>
+  <p>{description}</p>
+  {benefit && <span class="feature-benefit">{benefit}</span>}
+</div>
