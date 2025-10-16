@@ -4,19 +4,147 @@ export interface Props {
   subheadline?: string
   ctaLabel?: string
   ctaHref?: string
+  secondaryCtaLabel?: string
+  secondaryCtaHref?: string
+  tag?: string
+  illustrationSrc?: string
+  illustrationAlt?: string
 }
 const {
   headline = "Your Company’s Intelligence Engine",
   subheadline = "AI-powered support for Enterprise & EMS",
   ctaLabel = "Request Demo",
-  ctaHref = "/contact"
+  ctaHref = "/contact",
+  secondaryCtaLabel,
+  secondaryCtaHref,
+  tag,
+  illustrationSrc,
+  illustrationAlt = "Illustration"
 } = Astro.props
 ---
-<section class="hero">
+<section class="hero-enhanced">
+  <div class="hero-bg"></div>
   <div class="container hero-content">
+    {tag && <div class="hero-tag">{tag}</div>}
     <img src="/assets/img/incheck-logo.png" alt="InCheck.AI" class="logo" />
     <h1>{headline}</h1>
     <p class="lead">{subheadline}</p>
-    <a href={ctaHref} class="btn-get-started">{ctaLabel}</a>
+    <div class="cta-row">
+      <a href={ctaHref} class="btn-get-started">{ctaLabel}</a>
+      {secondaryCtaLabel && secondaryCtaHref && (
+        <a href={secondaryCtaHref} class="btn-secondary">{secondaryCtaLabel}</a>
+      )}
+    </div>
+    {illustrationSrc && (
+      <div class="hero-illustration">
+        <img src={illustrationSrc} alt={illustrationAlt} />
+      </div>
+    )}
   </div>
 </section>
+
+<style>
+.hero-enhanced {
+  position: relative;
+  padding-block: 72px 56px;
+  background: linear-gradient(120deg,#f0f7fa 0%,#e5ecfa 100%);
+  overflow: hidden;
+}
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: radial-gradient(circle at 60% 10%, #0ea5e911 0%, #fff0 80%);
+}
+.hero-content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+.hero-tag {
+  display: inline-block;
+  background: var(--primary, #0ea5e9);
+  color: #fff;
+  font-weight: 600;
+  font-size: 0.96em;
+  border-radius: 99px;
+  padding: 4px 18px;
+  margin-bottom: 18px;
+  letter-spacing: 0.04em;
+}
+.logo {
+  max-width: 120px;
+  margin-bottom: 24px;
+}
+h1 {
+  font-size: 2.6rem;
+  font-weight: 800;
+  margin-bottom: 0.4em;
+  color: var(--fg, #181b23);
+}
+.lead {
+  font-size: 1.22rem;
+  color: var(--muted, #555);
+  margin-bottom: 2em;
+}
+.cta-row {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 1.5em;
+}
+.btn-get-started {
+  background: var(--primary, #0ea5e9);
+  color: #fff;
+  padding: 13px 32px;
+  border-radius: 30px;
+  font-weight: 700;
+  text-decoration: none;
+  box-shadow: 0 2px 12px #0ea5e930;
+  transition: background 0.15s;
+}
+.btn-get-started:hover {
+  background: #0369a1;
+}
+.btn-secondary {
+  background: #fff;
+  color: var(--primary, #0ea5e9);
+  padding: 13px 32px;
+  border-radius: 30px;
+  font-weight: 700;
+  border: 2px solid var(--primary, #0ea5e9);
+  text-decoration: none;
+  transition: background 0.15s, color 0.15s;
+}
+.btn-secondary:hover {
+  background: #f0f7fa;
+  color: #0369a1;
+}
+.hero-illustration {
+  margin-top: 2.5em;
+  max-width: 360px;
+}
+.hero-illustration img {
+  width: 100%;
+  border-radius: 1.2em;
+  box-shadow: 0 4px 24px #0ea5e911;
+}
+@media (max-width: 700px) {
+  .hero-enhanced {
+    padding-block: 44px 22px;
+  }
+  h1 {
+    font-size: 1.7rem;
+  }
+  .logo {
+    max-width: 80px;
+  }
+  .hero-illustration {
+    max-width: 96vw;
+  }
+}
+</style>
