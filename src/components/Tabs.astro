@@ -10,11 +10,58 @@ export interface Props {
 const { tabs, initial = 0 } = Astro.props
 const [active, setActive] = Astro.useState(initial)
 ---
-<div class="tabs">
+
+<div class="tabs" role="tablist" aria-label="Tabs">
   {tabs.map((tab, i) => (
-    <button class={`tab${active === i ? " active" : ""}`} onClick={() => setActive(i)}>{tab.label}</button>
+    <button
+      type="button"
+      class={`tab${active === i ? " active" : ""}`}
+      role="tab"
+      aria-selected={active === i}
+      aria-controls={`tabpanel-${i}`}
+      id={`tab-${i}`}
+      tabindex={active === i ? 0 : -1}
+      onClick={() => setActive(i)}
+    >
+      {tab.label}
+    </button>
   ))}
 </div>
-<div>
-  {tabs[active].content}
+<div
+  id={`tabpanel-${active}`}
+  role="tabpanel"
+  aria-labelledby={`tab-${active}`}
+  class="tab-panel"
+>
+  {tabs[active]?.content}
 </div>
+
+<style>
+.tabs {
+  display: flex;
+  gap: 0.5em;
+  margin-bottom: 1em;
+}
+.tab {
+  padding: 0.5em 1.2em;
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  font-size: 1.06em;
+  color: var(--muted, #555);
+  cursor: pointer;
+  transition: color 0.15s, border-bottom 0.15s;
+  outline: none;
+}
+.tab.active {
+  color: var(--primary, #0ea5e9);
+  border-bottom: 2.5px solid var(--primary, #0ea5e9);
+  font-weight: 600;
+}
+.tab:hover:not(.active) {
+  color: var(--primary, #0ea5e9);
+}
+.tab-panel {
+  min-height: 2em;
+}
+</style>
