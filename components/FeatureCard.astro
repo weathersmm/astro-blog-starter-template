@@ -1,15 +1,38 @@
 ---
 export interface Props {
-  icon: string
-  title: string
-  description: string
-  benefit?: string
+  title: string;
+  body: string;
+  icon?: string;
+  linkLabel?: string;
+  linkHref?: string;
 }
-const { icon, title, description, benefit } = Astro.props
+const { title, body, icon, linkLabel, linkHref } = Astro.props;
 ---
 <div class="feature-card">
-  <img src={icon} alt={title} />
+  {icon && <img src={icon} alt="" class="feature-card-icon" />}
   <h3>{title}</h3>
-  <p>{description}</p>
-  {benefit && <span class="feature-benefit">{benefit}</span>}
+  <p>{body}</p>
+  {linkLabel && linkHref && <a href={linkHref} class="feature-card-link">{linkLabel}</a>}
 </div>
+<style>
+.feature-card {
+  background: #fff;
+  border-radius: 1.2em;
+  box-shadow: 0 2px 18px #0ea5e913;
+  padding: 1.8em 1.2em;
+  text-align: center;
+  margin-bottom: 1em;
+}
+.feature-card-icon {
+  width: 40px;
+  height: 40px;
+  margin-bottom: 0.7em;
+}
+.feature-card-link {
+  display: inline-block;
+  margin-top: 1em;
+  color: var(--primary, #0ea5e9);
+  font-weight: 600;
+  text-decoration: none;
+}
+</style>
