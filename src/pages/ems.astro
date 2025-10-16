@@ -1,15 +1,48 @@
 ---
-import Nav from '../components/Nav.astro';
-import FeaturesGrid from '../components/FeaturesGrid.astro';
-import { getCollection } from 'astro:content';
-
-// Retrieve the EMS product from the collection (slug "rampart").
-const p = (await getCollection('product')).find((p) => p.data.slug === 'rampart')!.data;
+import Layout from '../layouts/Layout.astro';
+import FeatureCard from '../components/FeatureCard.astro';
+import AdvantageCard from '../components/AdvantageCard.astro';
 ---
-<Nav />
-<section class="container card">
-  <h1>InCheck for EMS</h1>
-  <p class="muted">{p.description}</p>
-  <a class="btn" href="/contact">Request EMS demo</a>
-</section>
-<FeaturesGrid features={p.features} />
+
+<Layout title="EMS | InCheck.AI">
+  <section class="hero ems-hero">
+    <div class="container">
+      <img src="/assets/img/incheck-logo.png" alt="InCheck.AI Logo" class="logo" />
+      <h1>Your AI Partner on Every Call</h1>
+      <h2>Clinical intelligence, grounded in protocols, for the moments that matter.</h2>
+      <p class="lead">InCheck AI is the advanced assistant built for EMS realities. Powered by Rampart, working within your scope and local protocols.</p>
+      <a href="/contact" class="btn-get-started">Request Demo</a>
+    </div>
+  </section>
+  <section class="features-grid">
+    <div class="container">
+      <h2 class="section-title">Core Capabilities</h2>
+      <div class="features-cards">
+        <FeatureCard icon="/assets/img/clinical-icon.png" title="Advanced Clinical Decision Support" description="Protocol-driven guidance for diagnosis, treatment, and pharmacology. Tailored to certification level and local protocols." benefit="Deliver right care, right time." />
+        <FeatureCard icon="/assets/img/narrative-icon.png" title="Intelligent Narrative Generation" description="Converts spoken encounters into chart-ready PCRs, automatically capturing key details." benefit="Save time, ensure accuracy." />
+        <FeatureCard icon="/assets/img/hazmat-icon.png" title="Integrated HAZMAT Response" description="Immediate intelligence for chemical spills/exposures, guiding scene safety and treatment." benefit="Improve safety and response quality." />
+        <FeatureCard icon="/assets/img/training-icon.png" title="On-Demand Training & Simulation" description="Generates realistic clinical scenarios for daily skill sharpening and instant feedback." benefit="Stay ready for every event." />
+        <FeatureCard icon="/assets/img/translate-icon.png" title="Field-Ready Translation" description="Instant communication in any language—gather histories, explain procedures, build trust." benefit="Overcome barriers, earn trust." />
+      </div>
+    </div>
+  </section>
+  <section class="advantage">
+    <div class="container">
+      <h2 class="section-title">Why Choose InCheck AI?</h2>
+      <div class="advantage-grid">
+        <AdvantageCard title="Hyper-Localized" description="Guidance based on your state/county protocols." />
+        <AdvantageCard title="Scope-Aware" description="Info tailored to your certification level." />
+        <AdvantageCard title="Comprehensive" description="Clinical support, documentation, specialized response." />
+        <AdvantageCard title="Integration-Ready" description="API for embedding into ePCR, CAD, and more." />
+        <AdvantageCard title="Auditable & Secure" description="Every interaction logged for QA/QI and reporting." />
+        <AdvantageCard title="Built for EMS" description="Designed for real field challenges." />
+      </div>
+    </div>
+  </section>
+  <section class="cta">
+    <div class="container">
+      <h2>Ready to elevate your clinical operations?</h2>
+      <a href="/contact" class="btn-get-started">Request Live Demo</a>
+    </div>
+  </section>
+</Layout>
